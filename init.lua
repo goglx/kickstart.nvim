@@ -213,6 +213,16 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
+-- always keep the last edit position
+vim.api.nvim_create_autocmd('BufReadPost', {
+  pattern = '*',
+  callback = function()
+    if vim.fn.line '\'"' > 0 and vim.fn.line '\'"' <= vim.fn.line '$' then
+      vim.fn.execute 'normal! g`"'
+    end
+  end,
+})
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
