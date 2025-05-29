@@ -526,6 +526,12 @@ require('lazy').setup({
         require('telescope').extensions.file_browser.file_browser()
       end, { desc = '[F]ile [B]rowser' })
 
+      vim.keymap.set('n', '<leader>sp', function()
+        require('telescope').extensions.file_browser.file_browser { path = '%:p:h' }
+      end, { desc = '[F]ile [B]rowser current foldernte' })
+
+      vim.keymap.set('n', '<space>pf', ':Telescope file_browser path=%:p:h select_buffer=true<CR>')
+
       -- find dot files under version control
       vim.keymap.set('n', '<leader>b.', function()
         require('telescope.builtin').find_files {
@@ -538,10 +544,10 @@ require('lazy').setup({
 
       -- find other buffers - still checking if that is useful
       vim.keymap.set(
-              'n',
-              '<leader>bo',
-              '<cmd>lua require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true})<CR>',
-              { desc = 'Find other buffers' }
+        'n',
+        '<leader>bo',
+        '<cmd>lua require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true})<CR>',
+        { desc = 'Find other buffers' }
       )
 
       -- remove existing buffer buffers
