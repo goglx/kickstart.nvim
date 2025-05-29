@@ -174,6 +174,10 @@ vim.opt.shiftwidth = 4
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
+vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Quick save' })
+vim.keymap.set('n', ':', '<cmd>FineCmdline<CR>', { noremap = true, desc = 'FineCmdline' })
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
