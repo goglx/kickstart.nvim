@@ -876,6 +876,9 @@ require('lazy').setup({
 
         -- Go
         go = { 'gofumpt', 'goimports-reviser' },
+
+        -- Default formatter
+        ['_'] = { 'trim_whitespace' },
       },
     },
   },
