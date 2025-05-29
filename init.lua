@@ -437,6 +437,9 @@ require('lazy').setup({
       -- Telescope picker. This is really useful to discover what Telescope can
       -- do as well as how to actually do it!
 
+      -- Use in telescope for actions
+      local fb_actions = require('telescope').extensions.file_browser.actions
+
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
       require('telescope').setup {
@@ -452,6 +455,18 @@ require('lazy').setup({
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
+          },
+
+          -- file_browser and fb_actions usage
+          file_browser = {
+            theme = 'ivy',
+            -- disables netrw and use telescope-file-browser in its place
+            hijack_netrw = true,
+            mappings = {
+              ['n'] = {
+                ['<C-h>'] = fb_actions.remove,
+              },
+            },
           },
         },
       }
