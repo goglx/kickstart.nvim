@@ -873,6 +873,9 @@ require('lazy').setup({
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettier' },
         typescriptreact = { 'prettier' },
+
+        -- Go
+        go = { 'gofumpt', 'goimports-reviser' },
       },
     },
   },
