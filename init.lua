@@ -516,6 +516,15 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sb', function()
         require('telescope').extensions.file_browser.file_browser()
       end, { desc = '[F]ile [B]rowser' })
+
+      vim.keymap.set('n', '<leader>b.', function()
+        require('telescope.builtin').find_files {
+          prompt_title = 'Find Dotfiles',
+          hidden = true,
+          no_ignore = false,
+          file_ignore_patterns = { '%.git/.*' }, -- exclude .git directory contents
+        }
+      end, { desc = 'Find dotfiles under version control' })
     end,
   },
 
