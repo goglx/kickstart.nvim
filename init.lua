@@ -513,10 +513,12 @@ require('lazy').setup({
       end, { desc = '[S]earch [N]eovim files' })
 
       -- thegoglx keymaps
+      -- open file browser
       vim.keymap.set('n', '<leader>sb', function()
         require('telescope').extensions.file_browser.file_browser()
       end, { desc = '[F]ile [B]rowser' })
 
+      -- find dot files under version control
       vim.keymap.set('n', '<leader>b.', function()
         require('telescope.builtin').find_files {
           prompt_title = 'Find Dotfiles',
