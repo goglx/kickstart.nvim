@@ -223,6 +223,16 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
+-- autosave
+vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
+  pattern = '*',
+  callback = function()
+    if vim.bo.modified and not vim.bo.readonly and vim.fn.expand '%' ~= '' then
+      vim.api.nvim_command 'silent update'
+    end
+  end,
+})
+
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
