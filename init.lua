@@ -525,6 +525,14 @@ require('lazy').setup({
           file_ignore_patterns = { '%.git/.*' }, -- exclude .git directory contents
         }
       end, { desc = 'Find dotfiles under version control' })
+
+      -- find other buffers - still checking if that is useful
+      vim.keymap.set(
+              'n',
+              '<leader>bo',
+              '<cmd>lua require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true})<CR>',
+              { desc = 'Find other buffers' }
+      )
     end,
   },
 
