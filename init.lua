@@ -511,6 +511,11 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      -- thegoglx keymaps
+      vim.keymap.set('n', '<leader>sb', function()
+        require('telescope').extensions.file_browser.file_browser()
+      end, { desc = '[F]ile [B]rowser' })
     end,
   },
 
