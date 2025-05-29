@@ -535,6 +535,25 @@ require('lazy').setup({
               '<cmd>lua require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true})<CR>',
               { desc = 'Find other buffers' }
       )
+
+      -- remove existing buffer buffers
+      vim.keymap.set('n', '<leader>bd', function()
+        require('telescope.builtin').buffers {
+          attach_mappings = function(_, map)
+            -- Delete buffer with <c-d>
+            map('i', '<c-d>', function(prompt_bufnr)
+              local actions = require 'telescope.actions'
+              local action_state = require 'telescope.actions.state'
+              local current_picker = action_state.get_current_picker(prompt_bufnr)
+              current_picker:delete_selection(function(selection)
+                actions.close(prompt_bufnr)
+                vim.api.nvim_buf_delete(selection.bufnr, { force = true })
+              end)
+            end)
+            return true
+          end,
+        }
+      end, { desc = 'Delete buffers' })
     end,
   },
 
