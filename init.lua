@@ -872,6 +872,7 @@ require('lazy').setup({
         -- Typescript and Javascript
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
         typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
       },
     },
   },
