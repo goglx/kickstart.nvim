@@ -470,9 +470,11 @@ require('lazy').setup({
             theme = 'ivy',
             -- disables netrw and use telescope-file-browser in its place
             hijack_netrw = true,
+            initial_mode = 'normal',
             mappings = {
               ['n'] = {
-                ['<C-h>'] = fb_actions.remove,
+                ['<C-a>'] = fb_actions.create,
+                ['<C-d>'] = fb_actions.remove,
               },
             },
           },
