@@ -334,7 +334,30 @@ require('lazy').setup({
 
   { 'rose-pine/neovim', name = 'rose-pine' },
 
-  { 'VonHeikemen/fine-cmdline.nvim', dependencies = { 'MunifTanjim/nui.nvim' } },
+  {
+    'VonHeikemen/fine-cmdline.nvim',
+    dependencies = { 'MunifTanjim/nui.nvim' },
+    opts = {
+      cmdline = {
+        prompt = '➤ ',
+      },
+      popup = {
+        position = {
+          row = '20%',
+          col = '50%',
+        },
+        size = {
+          width = '60%',
+        },
+        border = {
+          style = 'rounded',
+        },
+        win_options = {
+          winhighlight = 'FloatBorder:FloatBorder',
+        },
+      },
+    },
+  },
 
   {
     'nvim-telescope/telescope-file-browser.nvim',
