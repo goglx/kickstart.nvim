@@ -482,7 +482,9 @@ require('lazy').setup({
           find_files = {
             layout_config = {
               prompt_position = 'top',
+              height = 0.4,
             },
+            previewer = false,
           },
         },
         extensions = {
