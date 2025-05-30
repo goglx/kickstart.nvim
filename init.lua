@@ -339,7 +339,7 @@ require('lazy').setup({
     dependencies = { 'MunifTanjim/nui.nvim' },
     opts = {
       cmdline = {
-        prompt = '➤ ',
+        prompt = '  ',
       },
       popup = {
         position = {
