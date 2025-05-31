@@ -958,6 +958,11 @@ require('lazy').setup({
         ['_'] = { 'trim_whitespace' },
       },
       notify_no_formatters = true,
+      formatters = {
+        yamlfmt = {
+          prepend_args = { '-formatter', 'retain_line_breaks=true' },
+        },
+      },
     },
   },
 
