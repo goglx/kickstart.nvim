@@ -497,7 +497,7 @@ require('lazy').setup({
             height = 0.80,
             preview_cutoff = 120,
           },
-          prompt_prefix = '🔍 ',
+          prompt_prefix = ' 🔍 ',
           selection_caret = '➤ ',
           sorting_strategy = 'ascending',
         },
