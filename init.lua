@@ -946,6 +946,11 @@ require('lazy').setup({
         -- Proto
         proto = { 'buf' },
 
+        -- yaml,yml
+        yaml = { 'prettier', 'yamlfmt' },
+        yml = { 'prettier', 'yamlfmt' },
+        ['yaml.gitlab'] = { 'prettier', 'yamlfmt' },
+
         -- Use the "*" filetype to run formatters on all filetypes.
         ['*'] = { 'codespell' },
 
