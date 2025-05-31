@@ -943,9 +943,13 @@ require('lazy').setup({
         -- Go
         go = { 'gofumpt', 'goimports-reviser' },
 
+        -- Use the "*" filetype to run formatters on all filetypes.
+        ['*'] = { 'codespell' },
+
         -- Default formatter
         ['_'] = { 'trim_whitespace' },
       },
+      notify_no_formatters = true,
     },
   },
 
