@@ -943,6 +943,9 @@ require('lazy').setup({
         -- Go
         go = { 'gofumpt', 'goimports-reviser' },
 
+        -- Proto
+        proto = { 'buf' },
+
         -- Use the "*" filetype to run formatters on all filetypes.
         ['*'] = { 'codespell' },
 
