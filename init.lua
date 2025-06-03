@@ -944,7 +944,7 @@ require('lazy').setup({
         go = { 'gofumpt', 'goimports-reviser' },
 
         -- Proto
-        proto = { 'buf' },
+        proto = { 'buf_ls' },
 
         -- yaml,yml
         yaml = { 'prettier', 'yamlfmt' },
