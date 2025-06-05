@@ -610,6 +610,10 @@ require('lazy').setup({
 
       -- thegoglx keymaps
       -- open file browser
+      vim.keymap.set('n', '<leader>sp', function()
+        require('telescope').extensions.file_browser.file_browser { path = '%:p:h' }
+      end, { desc = '[S]earch browse [P]roject folder' })
+
       vim.keymap.set('n', '<leader>pb', function()
         require('telescope').extensions.file_browser.file_browser()
       end, { desc = '[F]ile [B]rowser' })
