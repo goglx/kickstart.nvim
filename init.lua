@@ -609,7 +609,7 @@ require('lazy').setup({
 
       -- thegoglx keymaps
       -- open file browser
-      vim.keymap.set('n', '<leader>sb', function()
+      vim.keymap.set('n', '<leader>pb', function()
         require('telescope').extensions.file_browser.file_browser()
       end, { desc = '[F]ile [B]rowser' })
 
