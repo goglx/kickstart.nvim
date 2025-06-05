@@ -615,7 +615,11 @@ require('lazy').setup({
 
       vim.keymap.set('n', '<leader>pf', function()
         require('telescope').extensions.file_browser.file_browser { path = '%:p:h' }
-      end, { desc = '[F]ile [B]rowser current folder' })
+      end, { desc = '[P]roject [B]rowser current folder' })
+
+      vim.keymap.set('n', '<leader>pg', function()
+        require('telescope.builtin').git_status()
+      end, { desc = '[P]roject [G]it status' })
 
       -- find dot files under version control
       vim.keymap.set('n', '<leader>b.', function()
