@@ -189,6 +189,7 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>qo', ':copen<CR>', { desc = 'Open quickfix' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -233,49 +234,49 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 })
 
 -- autosave
-local autosave_timer = nil
-
--- Function to save the current buffer (keeping your exact logic)
-local function autosave()
-  if vim.bo.modified and not vim.bo.readonly and vim.fn.expand '%' ~= '' then
-    vim.api.nvim_command 'silent update'
-  end
-end
-
--- Function to start/restart the autosave timer (debouncing)
-local function debounce_autosave()
-  -- Cancel existing timer if running
-  if autosave_timer then
-    autosave_timer:stop()
-    autosave_timer:close()
-  end
-
-  -- Start new timer with 5-second delay
-  autosave_timer = vim.loop.new_timer()
-  if autosave_timer then
-    autosave_timer:start(5000, 0, vim.schedule_wrap(autosave))
-  end
-end
-
--- Create autocommand group
-local autosave_group = vim.api.nvim_create_augroup('DebouncedAutoSave', { clear = true })
-
--- Replace your immediate autosave with debounced version
-vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
-  group = autosave_group,
-  pattern = '*',
-  callback = debounce_autosave,
-  desc = 'Debounced autosave on text changes and leaving insert mode',
-})
-
+-- local autosave_timer = nil
+--
+-- -- Function to save the current buffer (keeping your exact logic)
+-- local function autosave()
+--   if vim.bo.modified and not vim.bo.readonly and vim.fn.expand '%' ~= '' then
+--     vim.api.nvim_command 'silent update'
+--   end
+-- end
+--
+-- -- Function to start/restart the autosave timer (debouncing)
+-- local function debounce_autosave()
+--   -- Cancel existing timer if running
+--   if autosave_timer then
+--     autosave_timer:stop()
+--     autosave_timer:close()
+--   end
+--
+--   -- Start new timer with 5-second delay
+--   autosave_timer = vim.loop.new_timer()
+--   if autosave_timer then
+--     autosave_timer:start(5000, 0, vim.schedule_wrap(autosave))
+--   end
+-- end
+--
+-- -- Create autocommand group
+-- local autosave_group = vim.api.nvim_create_augroup('DebouncedAutoSave', { clear = true })
+--
+-- -- Replace your immediate autosave with debounced version
 -- vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
+--   group = autosave_group,
 --   pattern = '*',
---   callback = function()
---     if vim.bo.modified and not vim.bo.readonly and vim.fn.expand '%' ~= '' then
---       vim.api.nvim_command 'silent update'
---     end
---   end,
+--   callback = debounce_autosave,
+--   desc = 'Debounced autosave on text changes and leaving insert mode',
 -- })
+
+vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
+  pattern = '*',
+  callback = function()
+    if vim.bo.modified and not vim.bo.readonly and vim.fn.expand '%' ~= '' then
+      vim.api.nvim_command 'silent update'
+    end
+  end,
+})
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
