@@ -552,6 +552,9 @@ require('lazy').setup({
             require('telescope.themes').get_dropdown(),
           },
 
+          -- fzf extension
+          fzf = {},
+
           -- file_browser and fb_actions usage
           file_browser = {
             theme = 'ivy',
