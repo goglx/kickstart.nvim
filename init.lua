@@ -631,14 +631,14 @@ require('lazy').setup({
       end, { desc = '[P]roject [G]it status' })
 
       -- find dot files under version control
-      vim.keymap.set('n', '<leader>b.', function()
+      vim.keymap.set('n', '<leader>p.', function()
         require('telescope.builtin').find_files {
           prompt_title = 'Find Dotfiles',
           hidden = true,
           no_ignore = false,
           file_ignore_patterns = { '%.git/.*' }, -- exclude .git directory contents
         }
-      end, { desc = 'Find dotfiles under version control' })
+      end, { desc = '[P]roject [D]otfiles git' })
 
       -- find other buffers - still checking if that is useful
       vim.keymap.set(
