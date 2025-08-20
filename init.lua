@@ -183,6 +183,10 @@ vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Quick save' })
 vim.keymap.set('n', ':', '<cmd>FineCmdline<CR>', { noremap = true, desc = 'FineCmdline' })
 
+-- Tab key maps
+vim.keymap.set('n', '<leader><tab>n', '<cmd>tabe<CR>', { desc = 'Open new tab' })
+vim.keymap.set("n", "<leader><tab>l", "<cmd>tabnext<CR>", { desc = "Next tab" })
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -448,6 +452,7 @@ require('lazy').setup({
       spec = {
         { '<leader>s', group = '[S]earch', icon = '󰥨' },
         { '<leader>t', group = '[T]oggle' },
+        { '<leader><tab>', group = '[T]abs', icon = '󰓩' },
         { '<leader>b', group = '[B]rowse', icon = '󰀶' },
         { '<leader>p', group = '[P]project', icon = '' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
