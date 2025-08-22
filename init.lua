@@ -184,8 +184,9 @@ vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Quick s
 vim.keymap.set('n', ':', '<cmd>FineCmdline<CR>', { noremap = true, desc = 'FineCmdline' })
 
 -- Tab key maps
-vim.keymap.set('n', '<leader><tab>n', '<cmd>tabe<CR>', { desc = 'Open new tab' })
-vim.keymap.set("n", "<leader><tab>l", "<cmd>tabnext<CR>", { desc = "Next tab" })
+vim.keymap.set('n', '<leader><tab><tab>', '<cmd>tabe<CR>', { desc = 'Open new tab' })
+vim.keymap.set('n', '<leader><tab>l', '<cmd>tabnext<CR>', { desc = 'Next tab' })
+vim.keymap.set('n', '<leader><tab>c', '<cmd>tabonly<CR>', { desc = 'Close other tabs' })
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
