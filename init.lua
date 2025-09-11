@@ -411,7 +411,7 @@ require('lazy').setup({
       require('telescope').load_extension 'telescope-tabs'
       require('telescope-tabs').setup {
         -- Your custom config :^)
-        vim.keymap.set("n", "<leader>p<tab>", require("telescope-tabs").list_tabs, { desc = "[T]elescope [T]abs" })
+        vim.keymap.set('n', '<leader>p<tab>', require('telescope-tabs').list_tabs, { desc = '[T]elescope [T]abs' }),
       }
     end,
     dependencies = { 'nvim-telescope/telescope.nvim' },
@@ -684,6 +684,8 @@ require('lazy').setup({
           end,
         }
       end, { desc = 'Delete buffers' })
+
+      require('thegoglx.multigrep').setup()
     end,
   },
 
