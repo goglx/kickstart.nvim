@@ -400,9 +400,21 @@ require('lazy').setup({
     },
   },
 
-  {
+  { -- file-browswer
     'nvim-telescope/telescope-file-browser.nvim',
     dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+  },
+
+  { -- Telescope tabs plugins
+    'LukasPietzschmann/telescope-tabs',
+    config = function()
+      require('telescope').load_extension 'telescope-tabs'
+      require('telescope-tabs').setup {
+        -- Your custom config :^)
+        vim.keymap.set("n", "<leader>p<tab>", require("telescope-tabs").list_tabs, { desc = "[T]elescope [T]abs" })
+      }
+    end,
+    dependencies = { 'nvim-telescope/telescope.nvim' },
   },
 
   { -- Useful plugin to show you pending keybinds.
