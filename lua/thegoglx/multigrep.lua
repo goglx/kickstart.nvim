@@ -28,10 +28,7 @@ local live_miltigrep = function(opts)
         table.insert(args, splits[2])
       end
 
-      return vim.list_extend(
-        args,
-        { '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case' }
-      )
+      return vim.list_extend(args, { '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case' })
     end,
 
     entry_maker = make_entry.gen_from_vimgrep(opts),
@@ -50,7 +47,7 @@ local live_miltigrep = function(opts)
 end
 
 M.setup = function()
-  vim.keymap.set('n', '<leader>sm', live_miltigrep)
+  vim.keymap.set('n', '<leader>sm', live_miltigrep, {desc = '[S]earch by [M]ulti Grep'})
 end
 
 return M
