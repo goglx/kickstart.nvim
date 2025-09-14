@@ -411,7 +411,7 @@ require('lazy').setup({
       require('telescope').load_extension 'telescope-tabs'
       require('telescope-tabs').setup {
         -- Your custom config :^)
-        vim.keymap.set('n', '<leader>p<tab>', require('telescope-tabs').list_tabs, { desc = '[T]elescope [T]abs' }),
+        vim.keymap.set('n', '<leader>s<tab>', require('telescope-tabs').list_tabs, { desc = '[S]earch [T]abs' }),
       }
     end,
     dependencies = { 'nvim-telescope/telescope.nvim' },
