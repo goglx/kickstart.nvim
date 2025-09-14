@@ -658,7 +658,7 @@ require('lazy').setup({
           prompt_title = 'Find Dotfiles',
           hidden = true,
           no_ignore = false,
-          file_ignore_patterns = { '%.git/.*' }, -- exclude .git directory contents
+          find_command = { 'fd', '--type', 'f', '--hidden', '--max-depth', '1', '^\\.' },
         }
       end, { desc = '[P]roject [D]otfiles git' })
 
