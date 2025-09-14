@@ -645,8 +645,12 @@ require('lazy').setup({
       end, { desc = '[P]roject [B]rowser current folder' })
 
       vim.keymap.set('n', '<leader>pg', function()
+        require('telescope.builtin').git_files()
+      end, { desc = '[P]roject [G]it files' })
+
+      vim.keymap.set('n', '<leader>ps', function()
         require('telescope.builtin').git_status()
-      end, { desc = '[P]roject [G]it status' })
+      end, { desc = '[P]roject git [S]tatus' })
 
       -- find dot files under version control
       vim.keymap.set('n', '<leader>p.', function()
