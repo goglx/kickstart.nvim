@@ -625,6 +625,11 @@ require('lazy').setup({
         }
       end, { desc = '[S]earch [/] in Open Files' })
 
+      -- open file browser
+      vim.keymap.set('n', '<leader>sb', function()
+        require('telescope').extensions.file_browser.file_browser()
+      end, { desc = '[S]earch [B]rowser' })
+
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
@@ -633,10 +638,6 @@ require('lazy').setup({
       -- thegoglx keymaps
       -- open file browser
       vim.keymap.set('n', '<leader>pb', function()
-        require('telescope').extensions.file_browser.file_browser()
-      end, { desc = '[F]ile [B]rowser' })
-
-      vim.keymap.set('n', '<leader>pf', function()
         require('telescope').extensions.file_browser.file_browser { path = '%:p:h', hidden = true, no_ignore = true }
       end, { desc = '[P]roject [B]rowser current folder' })
 
@@ -647,6 +648,24 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>ps', function()
         require('telescope.builtin').git_status()
       end, { desc = '[P]roject git [S]tatus' })
+
+      vim.keymap.set('n', '<leader>pf', function()
+        require('telescope.builtin').find_files {
+          prompt_title = 'Find Project Files',
+          hidden = true,
+          no_ignore = true,
+          cwd = '%:p:h',
+          find_command = {
+            'fd',
+            '--type',
+            'f',
+            '--hidden',
+            '--no-ignore',
+            '--exclude',
+            '.git',
+          },
+        }
+      end, { desc = '[P]roject [F]iles' })
 
       -- find dot files under version control
       vim.keymap.set('n', '<leader>p.', function()
