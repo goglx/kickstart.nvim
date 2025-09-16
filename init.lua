@@ -632,16 +632,12 @@ require('lazy').setup({
 
       -- thegoglx keymaps
       -- open file browser
-      vim.keymap.set('n', '<leader>sp', function()
-        require('telescope').extensions.file_browser.file_browser { path = '%:p:h' }
-      end, { desc = '[S]earch browse [P]roject folder' })
-
       vim.keymap.set('n', '<leader>pb', function()
         require('telescope').extensions.file_browser.file_browser()
       end, { desc = '[F]ile [B]rowser' })
 
       vim.keymap.set('n', '<leader>pf', function()
-        require('telescope').extensions.file_browser.file_browser { path = '%:p:h' }
+        require('telescope').extensions.file_browser.file_browser { path = '%:p:h', hidden = true, no_ignore = true }
       end, { desc = '[P]roject [B]rowser current folder' })
 
       vim.keymap.set('n', '<leader>pg', function()
@@ -657,7 +653,7 @@ require('lazy').setup({
         require('telescope.builtin').find_files {
           prompt_title = 'Find Dotfiles',
           hidden = true,
-          no_ignore = false,
+          no_ignore = true,
           find_command = { 'fd', '--type', 'f', '--hidden', '--max-depth', '1', '^\\.' },
         }
       end, { desc = '[P]roject [D]otfiles git' })
