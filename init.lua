@@ -639,7 +639,7 @@ require('lazy').setup({
       -- open file browser
       vim.keymap.set('n', '<leader>pb', function()
         require('telescope').extensions.file_browser.file_browser { path = '%:p:h', hidden = true, no_ignore = true }
-      end, { desc = '[P]roject [B]rowser current folder' })
+      end, { desc = '[P]roject [B]rowser' })
 
       vim.keymap.set('n', '<leader>pg', function()
         require('telescope.builtin').git_files()
