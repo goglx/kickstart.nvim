@@ -636,7 +636,26 @@ require('lazy').setup({
       end, { desc = '[S]earch [N]eovim files' })
 
       -- thegoglx keymaps
-      -- open file browser
+      -- show files
+      vim.keymap.set('n', '<leader>sp', function()
+        require('telescope.builtin').find_files {
+          prompt_title = 'Find Project Files',
+          hidden = true,
+          no_ignore = true,
+          cwd = '%:p:h',
+          find_command = {
+            'fd',
+            '--type',
+            'f',
+            '--hidden',
+            '--no-ignore',
+            '--exclude',
+            '.git',
+          },
+        }
+      end, { desc = '[S]earch [P]roject files' })
+
+      -- open file browser in current cwd
       vim.keymap.set('n', '<leader>pb', function()
         require('telescope').extensions.file_browser.file_browser { path = '%:p:h', hidden = true, no_ignore = true }
       end, { desc = '[P]roject [B]rowser' })
@@ -649,6 +668,7 @@ require('lazy').setup({
         require('telescope.builtin').git_status()
       end, { desc = '[P]roject git [S]tatus' })
 
+      -- project files in the cwd
       vim.keymap.set('n', '<leader>pf', function()
         require('telescope.builtin').find_files {
           prompt_title = 'Find Project Files',
@@ -705,6 +725,13 @@ require('lazy').setup({
       end, { desc = 'Delete buffers' })
 
       require('thegoglx.multigrep').setup()
+      -- Make sure the module is loaded
+      local picker = require 'thegoglx.arrowz'
+
+      -- Map <leader>K> in normal mode to open the picker
+      vim.keymap.set('n', '<leader>k', function()
+        picker.open()
+      end, { desc = 'Fuzzy command picker' })
     end,
   },
 
