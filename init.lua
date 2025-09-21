@@ -651,6 +651,8 @@ require('lazy').setup({
             '--no-ignore',
             '--exclude',
             '.git',
+            '--exclude',
+            'node_modules',
           },
         }
       end, { desc = '[S]earch [P]roject files' })
@@ -683,6 +685,8 @@ require('lazy').setup({
             '--no-ignore',
             '--exclude',
             '.git',
+            '--exclude',
+            'node_modules',
           },
         }
       end, { desc = '[P]roject [F]iles' })
@@ -726,7 +730,7 @@ require('lazy').setup({
 
       require('thegoglx.multigrep').setup()
       -- Make sure the module is loaded
-      local picker = require 'thegoglx.arrowz'
+      local picker = require 'thegoglx.picker'
 
       -- Map <leader>K> in normal mode to open the picker
       vim.keymap.set('n', '<leader>k', function()
