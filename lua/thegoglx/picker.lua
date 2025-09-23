@@ -8,7 +8,7 @@ local M = {}
 -- Central list of commands/actions
 -- Each entry: { id = "unique", desc = "Description", action = ":write<CR>" or function() ... end, group = "optional" }
 local items = {
-  { id = "checktime", desc = "Reload current buffer", action = ":checktime<CR?", group = "File" },
+  { id = "checktime", desc = "Reload current buffer", action = ":checktime<CR>", group = "File" },
   { id = "write", desc = "Save current buffer", action = ":w<CR>", group = "File" },
   { id = "quit", desc = "Quit", action = ":q<CR>", group = "File" },
   { id = "writequit", desc = "Write and quit", action = ":wq<CR>", group = "File" },
