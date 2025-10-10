@@ -374,6 +374,7 @@ require('lazy').setup({
   -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
 
   { 'rose-pine/neovim', name = 'rose-pine' },
+  { 'ellisonleao/gruvbox.nvim', config = true },
 
   {
     'VonHeikemen/fine-cmdline.nvim',
