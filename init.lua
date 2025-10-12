@@ -721,8 +721,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>p.', function()
         require('telescope.builtin').find_files {
           prompt_title = 'Find Dotfiles',
-          hidden = true,
-          no_ignore = true,
           find_command = { 'fd', '--type', 'f', '--hidden', '--max-depth', '1', '^\\.' },
         }
       end, { desc = '[P]roject [D]otfiles git' })
