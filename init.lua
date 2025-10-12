@@ -202,7 +202,9 @@ vim.api.nvim_create_autocmd('FileChangedShellPost', {
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
-vim.keymap.set('n', '<C-f>', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
+-- temp disable actions from nvim since I can used them from tmux
+-- vim.keymap.set('n', '<leader>tf', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
+-- vim.keymap.set('n', '<leader>ts', '<cmd>silent !tmux neww tmux-fzf-session<CR>')
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Quick save' })
 vim.keymap.set('n', ':', '<cmd>FineCmdline<CR>', { noremap = true, desc = 'FineCmdline' })
 
