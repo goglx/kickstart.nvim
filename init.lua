@@ -700,8 +700,28 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>pf', function()
         require('telescope.builtin').find_files {
           prompt_title = 'Find Project Files',
-          hidden = true,
-          no_ignore = true,
+          find_command = {
+            'fd',
+            '--type',
+            'f',
+            '--hidden',
+            '--no-ignore',
+            '-E',
+            '.*',
+            '-E',
+            'node_modules',
+            '-E',
+            'build',
+            '-E',
+            'dist',
+          },
+        }
+      end, { desc = '[P]roject [F]iles' })
+
+      -- project files in the cwd
+      vim.keymap.set('n', '<leader>pc', function()
+        require('telescope.builtin').find_files {
+          prompt_title = 'Find Project Files CWD',
           cwd = '%:p:h',
           find_command = {
             'fd',
@@ -709,13 +729,17 @@ require('lazy').setup({
             'f',
             '--hidden',
             '--no-ignore',
-            '--exclude',
-            '.git',
-            '--exclude',
+            '-E',
+            '.*',
+            '-E',
             'node_modules',
+            '-E',
+            'build',
+            '-E',
+            'dist',
           },
         }
-      end, { desc = '[P]roject [F]iles' })
+      end, { desc = '[P]roject Files [C]wd' })
 
       -- find dot files under version control
       vim.keymap.set('n', '<leader>p.', function()
