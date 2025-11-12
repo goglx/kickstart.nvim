@@ -177,7 +177,7 @@ vim.opt.softtabstop = 4
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 
--- if file is modifyed externdally autoreload buffer
+-- if file is modified externdally autoreload buffer
 -- autoreload
 vim.api.nvim_create_augroup('autoread_check', { clear = true })
 
@@ -192,7 +192,7 @@ vim.api.nvim_create_autocmd('FileChangedShellPost', {
   group = 'autoread_check',
   callback = function()
     vim.notify('File changed on disk. Buffer reloaded!', vim.log.levels.WARN)
-    -- clear notificaiton
+    -- clear notification
     vim.defer_fn(function()
       vim.cmd 'echo ""'
     end, 1000)
@@ -705,15 +705,9 @@ require('lazy').setup({
             '--type',
             'f',
             '--hidden',
-            '--no-ignore',
+            '--no-ignore-vcs',
             '-E',
-            '.*',
-            '-E',
-            'node_modules',
-            '-E',
-            'build',
-            '-E',
-            'dist',
+            '{.git,.idea,.vscode,node_modules,dist,build,target}',
           },
         }
       end, { desc = '[P]roject [F]iles' })
@@ -1072,7 +1066,7 @@ require('lazy').setup({
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
-        desc = '[B]uffer [F]ormat',
+        desc = '[B]buffer [F]ormat',
       },
     },
     opts = {
