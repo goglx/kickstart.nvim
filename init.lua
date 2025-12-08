@@ -206,7 +206,7 @@ vim.api.nvim_create_autocmd('FileChangedShellPost', {
 -- vim.keymap.set('n', '<leader>tf', '<cmd>silent !tmux neww tmux-sessionizer<CR>')
 -- vim.keymap.set('n', '<leader>ts', '<cmd>silent !tmux neww tmux-fzf-session<CR>')
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Quick save' })
-vim.keymap.set('n', ':', '<cmd>FineCmdline<CR>', { noremap = true, desc = 'FineCmdline' })
+-- vim.keymap.set('n', ':', '<cmd>FineCmdline<CR>', { noremap = true, desc = 'FineCmdline' })
 
 -- Tab key maps
 vim.keymap.set('n', '<leader><tab><tab>', '<cmd>tabe<CR>', { desc = 'Open new tab' })
@@ -707,7 +707,7 @@ require('lazy').setup({
             '--hidden',
             '--no-ignore-vcs',
             '-E',
-            '{.git,.idea,.vscode,node_modules,dist,build,target}',
+            '{.git,.idea,.vscode,node_modules,dist,target}',
           },
         }
       end, { desc = '[P]roject [F]iles' })
