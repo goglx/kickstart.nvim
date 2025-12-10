@@ -446,10 +446,10 @@ require('lazy').setup({
         map('n', '<leader>hQ', function()
           gitsigns.setqflist 'all'
         end, { desc = '[Q]uickfix hunks' })
-        map('n', '<leader>hq', gitsigns.setqflist, {desc = '[q]uickfix hunk'})
+        map('n', '<leader>hq', gitsigns.setqflist, { desc = '[q]uickfix hunk' })
 
         -- Toggles
-        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { 'Toggle current line [B]lame' })
+        map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = 'Toggle current line [B]lame' })
         map('n', '<leader>tw', gitsigns.toggle_word_diff, { desc = 'Toggle [W]ord diff' })
 
         -- Text object
