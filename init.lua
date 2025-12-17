@@ -1185,7 +1185,8 @@ require('lazy').setup({
         ['yaml.gitlab'] = { 'prettier', 'yamlfmt' },
 
         -- Use the "*" filetype to run formatters on all filetypes.
-        ['*'] = { 'codespell' },
+        markdown = { 'codespell' },
+        text = { 'codespell' },
 
         -- Default formatter
         ['_'] = { 'trim_whitespace' },
