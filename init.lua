@@ -475,6 +475,25 @@ require('lazy').setup({
   { 'rose-pine/neovim', name = 'rose-pine' },
   { 'ellisonleao/gruvbox.nvim', config = true },
 
+  -- open lazygit in neovim
+  {
+    'kdheepak/lazygit.nvim',
+    -- optional for floating window border decoration
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    lazy = true,
+    cmd = {
+      'LazyGit',
+      'LazyGitConfig',
+      'LazyGitCurrentFile',
+      'LazyGitFilter',
+      'LazyGitFilterCurrentFile',
+    },
+    keys = {
+      { '<leader>pl', '<cmd>LazyGit<cr>', desc = 'LazyGit (root dir)' },
+      { '<leader>pG', '<cmd>LazyGitCurrentFile<cr>', desc = 'LazyGit (current file)' },
+    },
+  },
+
   {
     'VonHeikemen/fine-cmdline.nvim',
     dependencies = { 'MunifTanjim/nui.nvim' },
