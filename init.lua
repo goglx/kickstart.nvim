@@ -474,6 +474,15 @@ require('lazy').setup({
 
   { 'rose-pine/neovim', name = 'rose-pine' },
   { 'ellisonleao/gruvbox.nvim', config = true },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.icons' },        -- if you use standalone mini plugins
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
+  },
 
   -- open lazygit in neovim
   {
@@ -491,6 +500,14 @@ require('lazy').setup({
     keys = {
       { '<leader>pl', '<cmd>LazyGit<cr>', desc = 'LazyGit (root dir)' },
       { '<leader>pG', '<cmd>LazyGitCurrentFile<cr>', desc = 'LazyGit (current file)' },
+    },
+  },
+
+  -- telescope-project
+  {
+    'nvim-telescope/telescope-project.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
     },
   },
 
@@ -712,6 +729,7 @@ require('lazy').setup({
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'file-browser')
+      pcall(require('telescope').load_extension, 'project')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -835,6 +853,10 @@ require('lazy').setup({
           find_command = { 'fd', '--type', 'f', '--hidden', '--max-depth', '1', '^\\.' },
         }
       end, { desc = '[P]roject [D]otfiles git' })
+
+      vim.keymap.set('n', '<leader>pp', function()
+        require('telescope').extensions.project.project()
+      end, { desc = '[P]rojects [P]roject' })
 
       -- find other buffers - still checking if that is useful
       vim.keymap.set(
