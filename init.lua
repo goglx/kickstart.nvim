@@ -579,6 +579,7 @@ require('lazy').setup({
         { '<leader>b', group = '[B]rowse', icon = '󰀶' },
         { '<leader>p', group = '[P]project', icon = '' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { 'gr', group = 'LSP Actions', mode = { 'n' } },
       },
     },
   },
