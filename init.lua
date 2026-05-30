@@ -88,6 +88,9 @@ P.S. You can delete this when you're done too. It's your config now! :)
 -- SECTION 1: FOUNDATION
 -- Core Neovim settings, leaders, options, basic keymaps, basic autocmds
 -- ============================================================
+
+require 'thegoglx'
+
 do
   -- Enable faster startup by caching compiled Lua modules
   vim.loader.enable()
@@ -99,7 +102,7 @@ do
   vim.g.maplocalleader = ' '
 
   -- Set to true if you have a Nerd Font installed and selected in the terminal
-  vim.g.have_nerd_font = false
+  vim.g.have_nerd_font = true
 
   -- [[ Setting options ]]
   --  See `:help vim.o`
@@ -110,7 +113,7 @@ do
   vim.o.number = true
   -- You can also add relative line numbers, to help with jumping.
   --  Experiment for yourself to see if you like it!
-  -- vim.o.relativenumber = true
+  vim.o.relativenumber = true
 
   -- Enable mouse mode, can be useful for resizing splits for example!
   vim.o.mouse = 'a'
@@ -165,12 +168,21 @@ do
   vim.o.cursorline = true
 
   -- Minimal number of screen lines to keep above and below the cursor.
-  vim.o.scrolloff = 10
+  vim.o.scrolloff = 20
 
   -- if performing an operation that would fail due to unsaved changes in the buffer (like `:q`),
   -- instead raise a dialog asking if you wish to save the current file(s)
   -- See `:help 'confirm'`
   vim.o.confirm = true
+
+  -- thegoglx fat cursor section
+  vim.opt.guicursor = ''
+  vim.opt.smarttab = true
+  vim.opt.expandtab = true
+  vim.opt.smartindent = true
+  vim.opt.softtabstop = 4
+  vim.opt.tabstop = 4
+  vim.opt.shiftwidth = 4
 
   -- [[ Basic Keymaps ]]
   --  See `:help vim.keymap.set()`
@@ -234,6 +246,17 @@ do
   -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
   -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+  -- thegoglx keybings
+  -- keep them for now
+  --
+  -- this is from my previous vim config
+  vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { noremap = true, desc = 'Quick save' })
+
+  -- Tab key maps
+  vim.keymap.set('n', '<leader><tab><tab>', '<cmd>tabe<CR>', { desc = 'Open new tab' })
+  vim.keymap.set('n', '<leader><tab>l', '<cmd>tabnext<CR>', { desc = 'Next tab' })
+  vim.keymap.set('n', '<leader><tab>c', '<cmd>tabonly<CR>', { desc = 'Close other tabs' })
+
   -- [[ Basic Autocommands ]]
   --  See `:help lua-guide-autocommands`
 
@@ -244,6 +267,42 @@ do
     desc = 'Highlight when yanking (copying) text',
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
     callback = function() vim.hl.on_yank() end,
+  })
+
+  -- always keep the last edit position
+  vim.api.nvim_create_autocmd('BufReadPost', {
+    pattern = '*',
+    callback = function()
+      if vim.fn.line '\'"' > 0 and vim.fn.line '\'"' <= vim.fn.line '$' then vim.fn.execute 'normal! g`"' end
+    end,
+  })
+
+  -- if file is modified externdally autoreload buffer
+  -- autoreload
+  vim.api.nvim_create_augroup('autoread_check', { clear = true })
+
+  -- Check for external changes
+  vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+    group = 'autoread_check',
+    command = 'checktime',
+  })
+
+  -- Notify when file is changed externally
+  vim.api.nvim_create_autocmd('FileChangedShellPost', {
+    group = 'autoread_check',
+    callback = function()
+      vim.notify('File changed on disk. Buffer reloaded!', vim.log.levels.WARN)
+      -- clear notification
+      vim.defer_fn(function() vim.cmd 'echo ""' end, 1000)
+    end,
+  })
+
+  -- autosave
+  vim.api.nvim_create_autocmd({ 'TextChanged', 'InsertLeave' }, {
+    pattern = '*',
+    callback = function()
+      if vim.bo.modified and not vim.bo.readonly and vim.fn.expand '%' ~= '' then vim.api.nvim_command 'silent update' end
+    end,
   })
 end
 
@@ -391,6 +450,10 @@ do
     },
   }
 
+  -- thegogolx themes
+  vim.pack.add { gh 'rose-pine/neovim' }
+  vim.pack.add { gh 'ellisonleao/gruvbox.nvim' }
+
   -- Load the colorscheme here.
   -- Like many other themes, this one has different styles, and you could load
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
@@ -477,6 +540,8 @@ do
     gh 'nvim-lua/plenary.nvim',
     gh 'nvim-telescope/telescope.nvim',
     gh 'nvim-telescope/telescope-ui-select.nvim',
+    gh 'nvim-telescope/telescope-file-browser.nvim',
+    gh 'nvim-telescope/telescope-project.nvim',
   }
   if vim.fn.executable 'make' == 1 then table.insert(telescope_plugins, gh 'nvim-telescope/telescope-fzf-native.nvim') end
 
@@ -576,6 +641,131 @@ do
 
   -- Shortcut for searching your Neovim configuration files
   vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[S]earch [N]eovim files' })
+
+  -- thegoglx keymaps telescope project scope
+  --
+  -- open file browser rooted at the top leve dir
+  vim.keymap.set('n', '<leader>sb', function() require('telescope').extensions.file_browser.file_browser() end, { desc = '[S]earch [B]rowser' })
+
+  -- open file browser in current cwd
+  vim.keymap.set(
+    'n',
+    '<leader>pb',
+    function() require('telescope').extensions.file_browser.file_browser { path = '%:p:h', hidden = true, no_ignore = true } end,
+    { desc = '[P]roject [B]rowser' }
+  )
+
+  -- project git files
+  vim.keymap.set('n', '<leader>pg', function() require('telescope.builtin').git_files() end, { desc = '[P]roject [G]it files' })
+
+  -- open git status picker to stage/unstage files
+  vim.keymap.set('n', '<leader>ps', function() require('telescope.builtin').git_status() end, { desc = '[P]roject git [S]tatus' })
+
+  -- find all files in the project, including hidden and VCS-ignored files
+  vim.keymap.set(
+    'n',
+    '<leader>pf',
+    function()
+      require('telescope.builtin').find_files {
+        prompt_title = 'Find Project Files',
+        find_command = {
+          'fd',
+          '--type',
+          'f',
+          '--hidden',
+          '--no-ignore-vcs',
+          '-E',
+          '{.git,.idea,.vscode,node_modules,dist,target}',
+        },
+      }
+    end,
+    { desc = '[P]roject [F]iles' }
+  )
+
+  -- find files relative to the current buffer's directory, including hidden files
+  vim.keymap.set(
+    'n',
+    '<leader>pc',
+    function()
+      require('telescope.builtin').find_files {
+        prompt_title = 'Find Project Files CWD',
+        cwd = '%:p:h',
+        find_command = {
+          'fd',
+          '--type',
+          'f',
+          '--hidden',
+          '--no-ignore',
+          '-E',
+          '.*',
+          '-E',
+          'node_modules',
+          '-E',
+          'build',
+          '-E',
+          'dist',
+        },
+      }
+    end,
+    { desc = '[P]roject Files [C]wd' }
+  )
+
+  -- find dotfiles (hidden files starting with .) in the current directory
+  vim.keymap.set(
+    'n',
+    '<leader>p.',
+    function()
+      require('telescope.builtin').find_files {
+        prompt_title = 'Find Dotfiles',
+        find_command = { 'fd', '--type', 'f', '--hidden', '--max-depth', '1', '^\\.' },
+      }
+    end,
+    { desc = '[P]roject [D]otfiles git' }
+  )
+
+  -- browse and switch between saved telescope projects
+  vim.keymap.set('n', '<leader>pp', function() require('telescope').extensions.project.project() end, { desc = '[P]rojects [P]roject' })
+
+  -- find other buffers - list recently used buffers, excluding the current one
+  -- still checking if that is useful
+  vim.keymap.set(
+    'n',
+    '<leader>bo',
+    '<cmd>lua require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true})<CR>',
+    { desc = 'Find other buffers' }
+  )
+
+  -- open a buffer picker and delete the selected buffer with <c-d>
+  vim.keymap.set('n', '<leader>bd', function()
+    require('telescope.builtin').buffers {
+      attach_mappings = function(_, map)
+        -- Delete buffer with <c-d>
+        map('i', '<c-d>', function(prompt_bufnr)
+          local actions = require 'telescope.actions'
+          local action_state = require 'telescope.actions.state'
+          local current_picker = action_state.get_current_picker(prompt_bufnr)
+          current_picker:delete_selection(function(selection)
+            actions.close(prompt_bufnr)
+            vim.api.nvim_buf_delete(selection.bufnr, { force = true })
+          end)
+        end)
+        return true
+      end,
+    }
+  end, { desc = 'Delete buffers' })
+
+  -- multigrep: custom telescope picker that greps with a separate file-pattern filter
+  require('thegoglx.multigrep').setup()
+  -- picker: custom fuzzy command palette for frequently used commands
+  local picker = require 'thegoglx.picker'
+  vim.keymap.set('n', '<leader>k', function() picker.open() end, { desc = 'Fuzzy command picker' })
+
+  -- thegoglx plugins
+  --
+  -- Seamless navigation between vim splits and tmux panes using <C-h/j/k/l>
+  vim.pack.add { gh 'christoomey/vim-tmux-navigator' }
+  -- Renders markdown with rich formatting (headings, tables, code blocks) directly in the buffer
+  vim.pack.add { gh 'MeanderingProgrammer/render-markdown.nvim' }
 end
 
 -- ============================================================
