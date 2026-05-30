@@ -419,6 +419,30 @@ do
       topdelete = { text = '‾' }, ---@diagnostic disable-line: missing-fields
       changedelete = { text = '~' }, ---@diagnostic disable-line: missing-fields
     },
+    on_attach = function(bufnr)
+      local gitsigns = require 'gitsigns'
+      local map = function(mode, keys, func, opts)
+        opts = opts or {}
+        opts.buffer = bufnr
+        vim.keymap.set(mode, keys, func, opts)
+      end
+
+      map('n', ']c', function()
+        if vim.wo.diff then
+          vim.cmd.normal { ']c', bang = true }
+        else
+          gitsigns.nav_hunk 'next'
+        end
+      end, { desc = 'Next git change' })
+
+      map('n', '[c', function()
+        if vim.wo.diff then
+          vim.cmd.normal { '[c', bang = true }
+        else
+          gitsigns.nav_hunk 'prev'
+        end
+      end, { desc = 'Prev git change' })
+    end,
   }
 
   -- Useful plugin to show you pending keybinds.
@@ -764,8 +788,14 @@ do
   --
   -- Seamless navigation between vim splits and tmux panes using <C-h/j/k/l>
   vim.pack.add { gh 'christoomey/vim-tmux-navigator' }
+
   -- Renders markdown with rich formatting (headings, tables, code blocks) directly in the buffer
   vim.pack.add { gh 'MeanderingProgrammer/render-markdown.nvim' }
+
+  -- Opens lazygit in a floating terminal window for git operations
+  vim.pack.add { gh 'kdheepak/lazygit.nvim' }
+  -- open lazygit floating window
+  vim.keymap.set('n', '<leader>pG', '<cmd>LazyGit<CR>', { desc = 'LazyGit (root dir)' })
 end
 
 -- ============================================================
@@ -992,7 +1022,7 @@ do
   vim.keymap.set({ 'n', 'v' }, '<leader>bf', function() require('conform').format { async = true } end, { desc = '[F]ormat buffer' })
 end
 
- -- ============================================================
+-- ============================================================
 -- SECTION 7: AUTOCOMPLETE & SNIPPETS
 -- blink.cmp and luasnip setup
 -- ============================================================
