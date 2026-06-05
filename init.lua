@@ -474,6 +474,7 @@ do
     },
   }
 
+  -- [[ thegogolx ]]
   -- thegogolx themes
   vim.pack.add { gh 'rose-pine/neovim' }
   vim.pack.add { gh 'ellisonleao/gruvbox.nvim' }
@@ -796,6 +797,26 @@ do
   vim.pack.add { gh 'kdheepak/lazygit.nvim' }
   -- open lazygit floating window
   vim.keymap.set('n', '<leader>pG', '<cmd>LazyGit<CR>', { desc = 'LazyGit (root dir)' })
+
+  -- FineCmdLine
+  vim.pack.add { gh 'MunifTanjim/nui.nvim' }
+  vim.pack.add { gh 'VonHeikemen/fine-cmdline.nvim' }
+  require('fine-cmdline').setup {
+    cmdline = {
+      enable_keymaps = true,
+      smart_history = true,
+      prompt = '  ',
+    },
+    popup = {
+      position = { row = '10%', col = '50%' },
+      size = { width = '60%' },
+      border = { style = 'rounded' },
+      win_options = {
+        winhighlight = 'FloatBorder:FloatBorder',
+      },
+    },
+  }
+  vim.keymap.set('n', ':', '<cmd>FineCmdline<CR>', { desc = 'Open FineCmdLine' })
 end
 
 -- ============================================================
