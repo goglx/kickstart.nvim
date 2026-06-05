@@ -453,9 +453,12 @@ do
     icons = { mappings = vim.g.have_nerd_font },
     -- Document existing key chains
     spec = {
-      { '<leader>s', group = '[S]earch', mode = { 'n', 'v' } },
+      { '<leader>s', group = '[S]earch', icon = '', mode = { 'n', 'v' } },
       { '<leader>t', group = '[T]oggle' },
       { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } }, -- Enable gitsigns recommended keymaps first
+      { '<leader>p', group = '[P]roject', icon = '' },
+      { '<leader>b', group = '[B]rowse', icon = '󰀶' },
+      { '<leader><tab>', group = '[T]abs', icon = '󰓩' },
       { 'gr', group = 'LSP Actions', mode = { 'n' } },
     },
   }
