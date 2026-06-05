@@ -830,6 +830,13 @@ do
   -- open lazygit floating window
   vim.keymap.set('n', '<leader>pG', '<cmd>LazyGit<CR>', { desc = 'LazyGit (root dir)' })
 
+  -- Auto-close lazygit when focus is lost
+  vim.api.nvim_create_autocmd('WinLeave', {
+    callback = function()
+      if vim.bo.filetype == 'lazygit' then vim.cmd 'q' end
+    end,
+  })
+
   -- FineCmdLine
   vim.pack.add {
     gh 'MunifTanjim/nui.nvim',
