@@ -442,6 +442,35 @@ do
           gitsigns.nav_hunk 'prev'
         end
       end, { desc = 'Prev git change' })
+
+      -- actions
+      map('n', '<leader>hs', gitsigns.stage_hunk, { desc = '[s]tage hunk' })
+      map('n', '<leader>hr', gitsigns.reset_hunk, { desc = '[r]eset hunk' })
+
+      map('v', '<leader>hs', function() gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' } end)
+
+      map('v', '<leader>hr', function() gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' } end, { desc = 'stage hunk' })
+
+      map('n', '<leader>hS', gitsigns.stage_buffer, { desc = '[S]tage buffer' })
+      map('n', '<leader>hR', gitsigns.reset_buffer, { desc = '[R]eset buffer' })
+      map('n', '<leader>hp', gitsigns.preview_hunk, { desc = '[P]review hunk' })
+      map('n', '<leader>hi', gitsigns.preview_hunk_inline, { desc = 'Preview hunk [I]nline' })
+
+      map('n', '<leader>hb', function() gitsigns.blame_line { full = true } end, { desc = '[B]lame line' })
+
+      map('n', '<leader>hd', gitsigns.diffthis, { desc = '[d]iff this' })
+
+      map('n', '<leader>hD', function() gitsigns.diffthis '~' end, { desc = '[D]iff buffer' })
+
+      map('n', '<leader>hQ', function() gitsigns.setqflist 'all' end, { desc = '[Q]uickfix hunks' })
+      map('n', '<leader>hq', gitsigns.setqflist, { desc = '[q]uickfix hunk' })
+
+      -- Toggles
+      map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = 'Toggle current line [B]lame' })
+      map('n', '<leader>tw', gitsigns.toggle_word_diff, { desc = 'Toggle [W]ord diff' })
+
+      -- Text object
+      map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
     end,
   }
 
@@ -1079,6 +1108,7 @@ do
   }
 
   vim.keymap.set({ 'n', 'v' }, '<leader>bf', function() require('conform').format { async = true } end, { desc = '[F]ormat buffer' })
+  vim.keymap.set('n', '<leader>bq', '<cmd>cclose | lclose<CR>', { desc = '[C]lose quickfix/location list' })
 end
 
 -- ============================================================
