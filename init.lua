@@ -799,8 +799,10 @@ do
   vim.keymap.set('n', '<leader>pG', '<cmd>LazyGit<CR>', { desc = 'LazyGit (root dir)' })
 
   -- FineCmdLine
-  vim.pack.add { gh 'MunifTanjim/nui.nvim' }
-  vim.pack.add { gh 'VonHeikemen/fine-cmdline.nvim' }
+  vim.pack.add {
+    gh 'MunifTanjim/nui.nvim',
+    gh 'VonHeikemen/fine-cmdline.nvim',
+  }
   require('fine-cmdline').setup {
     cmdline = {
       enable_keymaps = true,
@@ -938,6 +940,13 @@ do
     -- But for many setups, the LSP (`ts_ls`) will work just fine
     -- ts_ls = {},
 
+    -- thegogolx lsp
+    gopls = {},
+    ts_ls = {},
+    buf_ls = {},
+    eslint = {},
+    yamlls = {},
+
     stylua = {}, -- Used to format Lua code
 
     -- Special Lua Config, as recommended by neovim help docs
@@ -1037,6 +1046,32 @@ do
       --
       -- You can use 'stop_after_first' to run the first available formatter from the list
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
+
+      -- Typescript and Javascript
+      javascript = { 'prettierd', 'prettier', stop_after_first = true },
+      json = { 'prettier' },
+      typescript = { 'prettier' },
+      typescriptreact = { 'prettier' },
+
+      -- Go
+      go = { 'gofumpt', 'goimports-reviser' },
+
+      -- Proto
+      proto = { 'buf' },
+
+      -- yaml,yml
+      yaml = { 'prettier', 'yamlfmt' },
+      yml = { 'prettier', 'yamlfmt' },
+      ['yaml.gitlab'] = { 'prettier', 'yamlfmt' },
+
+      -- Use the "*" filetype to run formatters on all filetypes.
+      markdown = { 'codespell' },
+      text = { 'codespell' },
+    },
+    formatters = {
+      yamlfmt = {
+        prepend_args = { '-formatter', 'retain_line_breaks=true' },
+      },
     },
   }
 
