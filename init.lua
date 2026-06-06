@@ -986,6 +986,7 @@ do
     eslint = {},
     yamlls = {},
     terraformls = {},
+    jsonls = {},
 
     stylua = {}, -- Used to format Lua code
 
@@ -1044,6 +1045,25 @@ do
   local ensure_installed = vim.tbl_keys(servers or {})
   vim.list_extend(ensure_installed, {
     -- You can add other tools here that you want Mason to install
+
+    -- LSP servers
+    'gopls',
+    'typescript-language-server',
+    'buf',
+    'eslint-lsp',
+    'yaml-language-server',
+    'terraform-ls',
+    'json-lsp',
+    'stylua',
+    'lua-language-server',
+
+    -- Formatters and linters
+    'prettier',
+    'goimports-reviser',
+    'gofumpt',
+    'yamlfmt',
+    'codespell',
+    'terraform',
   })
 
   require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -1164,6 +1184,15 @@ do
       --
       -- See `:help blink-cmp-config-keymap` for defining your own keymap
       preset = 'default',
+      ['<C-n>'] = {
+        function(cmp)
+          if not cmp.is_visible() then
+            cmp.show { providers = { 'buffer' } }
+            return true
+          end
+        end,
+        'select_next',
+      },
 
       -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
       --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -1183,6 +1212,9 @@ do
 
     sources = {
       default = { 'lsp', 'path', 'snippets' },
+      providers = {
+        lsp = { fallbacks = {} },
+      },
     },
 
     snippets = { preset = 'luasnip' },
