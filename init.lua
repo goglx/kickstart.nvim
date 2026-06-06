@@ -985,6 +985,7 @@ do
     buf_ls = {},
     eslint = {},
     yamlls = {},
+    terraformls = {},
 
     stylua = {}, -- Used to format Lua code
 
