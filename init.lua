@@ -702,13 +702,18 @@ do
   -- thegoglx keymaps telescope project scope
   --
   -- open file browser rooted at the top leve dir
-  vim.keymap.set('n', '<leader>sb', function() require('telescope').extensions.file_browser.file_browser() end, { desc = '[S]earch [B]rowser' })
+  vim.keymap.set(
+    'n',
+    '<leader>sb',
+    function() require('telescope').extensions.file_browser.file_browser { no_ignore = true } end,
+    { desc = '[S]earch [B]rowser' }
+  )
 
   -- open file browser in current cwd
   vim.keymap.set(
     'n',
     '<leader>pb',
-    function() require('telescope').extensions.file_browser.file_browser { path = '%:p:h', hidden = true, no_ignore = true } end,
+    function() require('telescope').extensions.file_browser.file_browser { path = '%:p:h', no_ignore = true } end,
     { desc = '[P]roject [B]rowser' }
   )
 
